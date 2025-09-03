@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jharkhand Tourism | Explore Nature, Culture & Heritage</title>
+  <meta name="description" content="Discover top tourism spots in Jharkhand – waterfalls, wildlife, temples, valleys & hill stations. Find images, travel info, nearby cities & distances, and stay facilities." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-GZ3n3c0z0v9zq9e0" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: #0f172a;
+      --muted: #93a4bf;
+      --text: #e6eefb;
+      --brand: #3b82f6;
+      --accent: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --ring: rgba(59,130,246,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, Ubuntu, Cantarell, "Segoe UI Variable", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1000px 600px at 10% -10%, #1f2937 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 110% 10%, #0b3c74 0%, transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a{color:inherit}
+
+    
+    .header{ position:sticky; top:0; z-index:50; backdrop-filter: saturate(180%) blur(10px);
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(11,18,32,.65));
+      border-bottom: 1px solid rgba(148,163,184,.18);
+    }
+    .nav{ max-width:1200px; margin:auto; display:flex; align-items:center; gap:14px; padding:12px 16px; }
+    .logo{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px}
+    .logo img{width:40px; height:40px; border-radius:50%; object-fit:cover}
+    .nav-actions{margin-left:auto; display:flex; gap:10px; align-items:center}
+    .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid rgba(148,163,184,.18); background:#0f172a; color:var(--text); text-decoration:none; cursor:pointer; }
+    .btn:hover{ border-color: rgba(148,163,184,.35); box-shadow: 0 0 0 4px var(--ring) inset; }
+    .btn.ghost{ background: transparent }
+    .hamburger{ display:none; width:40px; height:40px; border-radius:12px; border:1px solid rgba(148,163,184,.2); background:transparent; position:relative }
+    .hamburger i{ position:absolute; inset:0; display:grid; place-items:center }
+
+    .banner{ max-width:1200px; margin: 18px auto 8px; border-radius: var(--radius); padding:18px; background: linear-gradient(135deg, rgba(59,130,246,.2), rgba(34,197,94,.15)); border:1px solid rgba(148,163,184,.18); display:flex; align-items:center; gap:16px; }
+    .pill{ background: rgba(34,197,94,.18); color:#bbf7d0; padding:6px 10px; border-radius:999px; font-weight:600; font-size:12px; letter-spacing:.2px }
+
+    
+    .hero{ max-width:1200px; margin: 8px auto 22px; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; align-items:stretch; }
+    .hero-card{ position:relative; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(148,163,184,.18); background: #0f172a; min-height: 300px; }
+    .hero-media{ position:absolute; inset:0; }
+    .hero-media img{ width:100%; height:100%; object-fit:cover; filter: brightness(.8) contrast(1.05); }
+    .hero-overlay{ position:absolute; inset:auto 0 0 0; padding:18px; background: linear-gradient(180deg, transparent, rgba(0,0,0,.7)); }
+    .hero h1{ margin:0 0 10px; font-size: clamp(1.6rem, 2.2vw + .8rem, 2.6rem); }
+    .hero p{ margin:0; color:var(--muted) }
+
+    .panel{ border-radius: var(--radius); border:1px solid rgba(148,163,184,.18); padding:16px; background:#0f172a; }
+    .panel .row{ display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+    .search{ flex:1; position:relative }
+    .search input{ width:100%; background:#0b1220; border:1px solid rgba(148,163,184,.25); border-radius:12px; color:var(--text); padding:12px 40px 12px 12px }
+    .search i{ position:absolute; right:10px; top:50%; transform:translateY(-50%); color:var(--muted) }
+    .chips{ display:flex; gap:8px; flex-wrap:wrap }
+    .chip{ padding:8px 12px; border-radius:999px; background:#0b1220; border:1px solid rgba(148,163,184,.25); font-size:.9rem; cursor:pointer }
+    .chip.active{ border-color: var(--brand); background: rgba(59,130,246,.15) }
+
+    
+    .grid{ max-width:1200px; margin: 10px auto 80px; display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:18px; }
+    @media (max-width: 1000px){ .hero{ grid-template-columns: 1fr } .grid{ grid-template-columns: repeat(2, 1fr); } .hamburger{display:inline-flex} }
+    @media (max-width: 640px){ .grid{ grid-template-columns: 1fr } }
+
+    .card{ border-radius: var(--radius); border:1px solid rgba(148,163,184,.18); background:#0f172a; overflow:hidden; display:flex; flex-direction:column }
+    .media{ position:relative; aspect-ratio: 16/9; background:#0b1220 }
+    .media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .badge{ position:absolute; left:10px; top:10px; background: rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.25); padding:6px 10px; border-radius:999px; font-size:.8rem }
+    .content{ padding:14px 14px 8px }
+    .content h3{ margin:0 0 6px; font-size:1.1rem }
+    .content p{ margin:0 0 10px; color:var(--muted) }
+    .meta{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; padding:8px 14px 12px; color:#cbd5e1 }
+    .meta div{ display:flex; gap:8px; align-items:flex-start }
+    .meta i{ margin-top:3px; opacity:.9 }
+    .card-actions{ display:flex; gap:10px; padding:12px 14px 16px; margin-top:auto }
+    .card-actions .btn{ flex:1; justify-content:center }
+
+    
+    dialog{ width:min(920px, 92vw); border:none; border-radius: 18px; background:#0f172a; color:var(--text); padding:0; box-shadow: 0 20px 80px rgba(0,0,0,.6); }
+    dialog::backdrop{ background: rgba(7,12,22,.7) }
+    .drawer-head{ display:flex; align-items:center; justify-content:space-between; padding:16px; border-bottom:1px solid rgba(148,163,184,.18) }
+    .drawer-body{ display:grid; grid-template-columns: 1.2fr .8fr; gap:12px; padding:14px; }
+    .gallery{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
+    .gallery img{ width:100%; height:200px; object-fit:cover; border-radius: 12px; }
+    .list{ display:flex; flex-direction:column; gap:10px }
+    .list .item{ border:1px solid rgba(148,163,184,.18); background:#0b1220; border-radius: 12px; padding:10px }
+    .item h4{ margin:0 0 6px }
+    .item p{ margin:0; color:var(--muted) }
+    .drawer-foot{ padding:12px 14px 16px; border-top:1px solid rgba(148,163,184,.18); display:flex; gap:10px; justify-content:flex-end }
+
+   
+    .video-wrap{ max-width:1200px; margin:0 auto 70px; border:1px solid rgba(148,163,184,.18); background:#0f172a; border-radius: var(--radius); overflow:hidden }
+    .video-aspect{ position:relative; width:100%; padding-top:56.25%; }
+    .video-aspect iframe{ position:absolute; inset:0; width:100%; height:100%; border:0 }
+
+    
+    footer{ border-top:1px solid rgba(148,163,184,.18); color:var(--muted); padding:28px 16px; }
+    .foot-inner{ max-width:1200px; margin:auto; display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center }
+
+    
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0 }
+    .hidden{ display:none }
+    .faded{ opacity:.85 }
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <nav class="nav" aria-label="Primary">
+      <a class="logo" href="#" aria-label="Jharkhand Tourism Home">
+        <img src="logo.png" alt="Jharkhand Tourism" loading="lazy" decoding="async" />
+        <span>Jharkhand Tourism</span>
+      </a>
+      <div class="nav-actions">
+        <button class="btn ghost" id="scrollNotice" aria-live="polite"><i class="fa-solid fa-phone"></i> Helpline: +91 0651-233 1828 (Mon–Sat, 10am–6pm)</button>
+        <button class="hamburger" id="menuBtn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="banner" role="status" aria-live="polite">
+    <span class="pill">New!</span>
+    <div>
+      <strong>Applications are open</strong> for qualified tourist guides across Jharkhand. <a class="btn" href="#spots"><i class="fa-solid fa-compass"></i> Explore Spots</a>
+    </div>
+  </div>
+
+  <section class="hero" id="top">
+    <div class="hero-card" aria-label="Hero image of Jharkhand waterfalls">
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1600" alt="Scenic waterfall in a forest" fetchpriority="high" />
+      </div>
+      <div class="hero-overlay">
+        <h1>Explore the Land of Forests</h1>
+        <p>Waterfalls, temples, wildlife, and valleys. Plan your trip with routes, stays, and distances—everything in one place.</p>
+      </div>
+    </div>
+    <aside class="panel" aria-label="Search and filters">
+      <div class="row">
+        <div class="search">
+          <label class="sr-only" for="q">Search places</label>
+          <input id="q" type="search" placeholder="Search by name, city or category…" autocomplete="off" />
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </div>
+        <button class="btn" id="clearBtn"><i class="fa-solid fa-eraser"></i> Clear</button>
+      </div>
+      <div class="chips" id="chips" role="listbox" aria-label="Filter by category">
+        
+      </div>
+    </aside>
+  </section>
+
+  
+  <section class="video-wrap" aria-label="Experience Jharkhand video">
+    <div class="video-aspect">
+      <iframe title="Jharkhand Travel Highlights" loading="lazy" src="video.mp4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </section>
+
+ 
+  <main id="spots" class="grid" aria-live="polite" aria-busy="false">
+    
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <p>© <span id="year"></span> Jharkhand Tourism (Demo). Built for internship assignment — responsive, accessible, and optimized (lazy images, aspect ratios, minimal CLS).</p>
+      <a class="btn" href="#top"><i class="fa-solid fa-arrow-up"></i> Back to top</a>
+    </div>
+  </footer>
+
+  
+  <dialog id="drawer" aria-label="Spot details">
+    <div class="drawer-head">
+      <strong id="dTitle">Title</strong>
+      <button class="btn" id="closeDrawer"><i class="fa-solid fa-xmark"></i> Close</button>
+    </div>
+    <div class="drawer-body">
+      <div>
+        <div class="gallery" id="dGallery"></div>
+      </div>
+      <div class="list" id="dInfo">
+        <!-- transport / nearby / stay -->
+      </div>
+    </div>
+    <div class="drawer-foot">
+      <a class="btn" id="dMap" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> View on Google Maps</a>
+    </div>
+  </dialog>
+
+  <script>
+    // ---- Data (approx distances; replace with exact figures if needed) ----
+    const CATEGORIES = ["Waterfalls","Temples","Wildlife","Hill Station","Valley","Heritage"];
+    const SPOTS = [
+      {
+        id:"hundru-falls",
+        name:"Hundru Falls",
+        category:"Waterfalls",
+        city:"Ranchi District",
+        desc:"One of the highest waterfalls of Jharkhand formed by the Subarnarekha River, famed for monsoon grandeur and rocky ravines.",
+        cover:"hundru1.jpeg",
+        photos:[
+          "hundru1.jpeg",
+          "hundru2.jpeg",
+          "hundru3.jpeg",
+          "hundru4.jpeg"
+        ],
+        transport:[
+          "By Road: ~45 km from Ranchi; regular buses/taxis.",
+          "By Rail: Ranchi Jn. (~41 km)",
+          "By Air: Ranchi (IXR) ~48 km"
+        ],
+        nearby:[
+          {city:"Ranchi", distance:"~45 km"},
+          {city:"Namkum", distance:"~30 km"}
+        ],
+        stay:[
+          "Budget: Lodges in Ranchi city",
+          "Mid-range: Hotels near Kanke/Argora",
+          "Note: Check seasonal access & safety"
+        ],
+        map:"https://www.google.com/maps?q=Hundru+Falls"
+      },
+      {
+        id:"dassam-falls",
+        name:"Dassam Falls",
+        category:"Waterfalls",
+        city:"Ranchi District",
+        desc:"A picturesque cascade on the Kanchi River near Taimara village; popular for day trips and photography.",
+        cover:"dassam1.jpeg",
+        photos:[
+          "dassam1.jpeg",
+          "dassam2.jpeg",
+          "dassam3.jpeg",
+          "dassam4.jpeg"
+        ],
+        transport:[
+          "By Road: ~40 km from Ranchi via NH43",
+          "By Rail: Ranchi Jn. (~38 km)",
+          "By Air: Ranchi (IXR) ~44 km"
+        ],
+        nearby:[{city:"Ranchi", distance:"~40 km"},{city:"Taimara", distance:"~2 km"}],
+        stay:["Hotels in Ranchi; day-trip recommended"],
+        map:"https://www.google.com/maps?q=Dassam+Falls"
+      },
+      {
+        id:"betla-national-park",
+        name:"Betla National Park",
+        category:"Wildlife",
+        city:"Latehar / Palamu",
+        desc:"One of India's earliest tiger reserves with rich flora, fauna, forts and safari experiences.",
+        cover:"betla2.jpeg",
+        photos:[
+          "betla1.jpeg",
+          "betla2.jpeg",
+          "betla3.jpeg",          
+          "betla4.jpeg"
+        ],
+        transport:[
+          "By Road: ~170 km from Ranchi; buses to Latehar/Barwadih",
+          "By Rail: Daltonganj/Barwadih",
+          "By Air: Ranchi (IXR) ~170 km"
+        ],
+        nearby:[{city:"Daltonganj", distance:"~30 km"},{city:"Latehar", distance:"~60 km"}],
+        stay:["Forest Rest Houses (book in advance)","Eco-lodges & hotels near Betla"],
+        map:"https://www.google.com/maps?q=Betla+National+Park"
+      },
+      {
+        id:"patratu-valley",
+        name:"Patratu Valley",
+        category:"Valley",
+        city:"Ramgarh",
+        desc:"A stunning valley with serpentine roads, panoramic hill views and a scenic dam; best around sunrise/sunset.",
+        cover:"patratu1.jpeg",
+        photos:[
+          "patratu1.jpeg",
+          "patratu2.jpeg",
+          "patratu3.jpeg",
+          "patratu4.jpeg"
+        ],
+        transport:["By Road: ~40 km from Ranchi","By Rail: Ramgarh Cantonment","By Air: Ranchi (IXR) ~45 km"],
+        nearby:[{city:"Ranchi", distance:"~40 km"},{city:"Ramgarh", distance:"~20 km"}],
+        stay:["Resorts near Patratu Lake","Hotels in Ramgarh/Ranchi"],
+        map:"https://www.google.com/maps?q=Patratu+Valley"
+      },
+      {
+        id:"baidyanath-temple",
+        name:"Baidyanath Jyotirlinga, Deoghar",
+        category:"Temples",
+        city:"Deoghar",
+        desc:"A revered Jyotirlinga dedicated to Lord Shiva; attracts pilgrims year-round, especially during Shravan.",
+        cover:"baidyanath1.jpeg",
+        photos:[
+          "baidyanath1.jpeg",
+          "baidyanath2.jpeg",
+          "baidyanath3.jpeg",
+          "baidyanath4.jpeg"
+        ],
+        transport:["By Road: ~250 km from Ranchi","By Rail: Jasidih/Deoghar Station","By Air: Deoghar Airport (DGH)"],
+        nearby:[{city:"Jasidih", distance:"~8 km"},{city:"Ranchi", distance:"~250 km"}],
+        stay:["Dharamshalas near temple","Hotels in Deoghar city"],
+        map:"https://www.google.com/maps?q=Baidyanath+Temple+Deoghar"
+      },
+      {
+        id:"parasnath-hill",
+        name:"Parasnath Hill (Shikharji)",
+        category:"Heritage",
+        city:"Giridih",
+        desc:"One of the most important Jain pilgrimage sites with hilltop temples and forested trails.",
+        cover:"parasnath1.jpeg",
+        photos:[
+          "parasnath1.jpeg",
+          "parasnath2.jpeg",
+          "parasnath3.jpeg",
+          "parasnath4.jpeg"
+          
+        ],
+        transport:["By Road: ~180 km from Ranchi","By Rail: Parasnath Station","By Air: Ranchi (IXR)/Durgapur"],
+        nearby:[{city:"Giridih", distance:"~50 km"},{city:"Dhanbad", distance:"~60 km"}],
+        stay:["Pilgrim rest houses","Hotels in Giridih & Madhuban"],
+        map:"https://www.google.com/maps?q=Parasnath+Hill"
+      },
+      {
+        id:"netarhat",
+        name:"Netarhat",
+        category:"Hill Station",
+        city:"Latehar",
+        desc:"The ‘Queen of Chotanagpur’ known for sunrise/sunset points, pine forests, and soothing climate.",
+        cover:"netarhat1.jpeg",
+        photos:[
+          "netarhat1.jpeg",
+          "netarhat2.jpeg",
+          "netarhat3.jpeg",
+          "netarhat4.jpeg"
+        ], 
+        transport:["By Road: ~156 km from Ranchi","By Rail: Daltonganj/Latehar","By Air: Ranchi (IXR)"],
+        nearby:[{city:"Latehar", distance:"~56 km"},{city:"Ranchi", distance:"~156 km"}],
+        stay:["Tourist bungalows (advance booking)","Eco-stays & hotels"],
+        map:"https://www.google.com/maps?q=Netarhat"
+      }
+    ];
+
+   
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+
+    
+    $('#year').textContent = new Date().getFullYear();
+
+    
+    const chipsWrap = document.getElementById('chips');
+    const allChip = document.createElement('button');
+    allChip.className = 'chip active';
+    allChip.textContent = 'All';
+    allChip.dataset.cat = 'All';
+    chipsWrap.appendChild(allChip);
+    for(const c of CATEGORIES){
+      const b = document.createElement('button');
+      b.className = 'chip'; b.textContent = c; b.dataset.cat = c; chipsWrap.appendChild(b);
+    }
+
+    
+    const grid = document.getElementById('spots');
+    function render(list){
+      grid.setAttribute('aria-busy','true');
+      grid.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      for(const s of list){
+        const card = document.createElement('article');
+        card.className = 'card'; card.setAttribute('tabindex','0'); card.setAttribute('aria-label', s.name);
+        card.innerHTML = `
+          <div class="media">
+            <span class="badge"><i class="fa-solid fa-tag"></i> ${s.category}</span>
+            <img src="${s.cover}" alt="${s.name}" loading="lazy" decoding="async" />
+          </div>
+          <div class="content">
+            <h3>${s.name}</h3>
+            <p class="faded">${s.desc}</p>
+          </div>
+          <div class="meta">
+            <div><i class="fa-solid fa-location-dot"></i> ${s.city}</div>
+            <div><i class="fa-solid fa-tent"></i> Stays & facilities listed</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" target="_blank" rel="noopener" href="${s.map}"><i class="fa-solid fa-map"></i> Map</a>
+            <button class="btn" data-open="${s.id}"><i class="fa-solid fa-circle-info"></i> Details</button>
+          </div>`;
+        frag.appendChild(card);
+      }
+      grid.appendChild(frag);
+      grid.removeAttribute('aria-busy');
+    }
+
+    render(SPOTS);
+
+    
+    const q = document.getElementById('q');
+    function doFilter(){
+      const term = q.value.trim().toLowerCase();
+      const activeCat = chipsWrap.querySelector('.chip.active')?.dataset.cat || 'All';
+      const out = SPOTS.filter(s => {
+        const inCat = activeCat === 'All' || s.category === activeCat;
+        const inTerm = !term || [s.name, s.city, s.category, s.desc].join(' ').toLowerCase().includes(term);
+        return inCat && inTerm;
+      });
+      render(out);
+    }
+    q.addEventListener('input', doFilter);
+    document.getElementById('clearBtn').addEventListener('click', ()=>{ q.value=''; chipsWrap.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); chipsWrap.querySelector('.chip').classList.add('active'); doFilter(); q.focus(); });
+    chipsWrap.addEventListener('click', e=>{
+      if(!e.target.classList.contains('chip')) return;
+      chipsWrap.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      e.target.classList.add('active');
+      doFilter();
+    });
+
+    
+    const drawer = document.getElementById('drawer');
+    const dTitle = document.getElementById('dTitle');
+    const dGallery = document.getElementById('dGallery');
+    const dInfo = document.getElementById('dInfo');
+    const dMap = document.getElementById('dMap');
+
+    document.addEventListener('click', e=>{
+      const btn = e.target.closest('[data-open]');
+      if(!btn) return;
+      const id = btn.getAttribute('data-open');
+      const s = SPOTS.find(x=>x.id===id);
+      if(!s) return;
+      dTitle.textContent = s.name;
+      dMap.href = s.map;
+     
+      dGallery.innerHTML = s.photos.map(src=>`<img alt="${s.name}" loading="lazy" decoding="async" src="${src}" />`).join('');
+      
+      dInfo.innerHTML = `
+        <div class="item">
+          <h4><i class="fa-solid fa-bus"></i> Transport Facilities</h4>
+          <p>${s.transport.map(t=>`• ${t}`).join('<br>')}</p>
+        </div>
+        <div class="item">
+          <h4><i class="fa-solid fa-city"></i> Nearby Cities & Distances</h4>
+          <p>${s.nearby.map(n=>`• ${n.city}: ${n.distance}`).join('<br>')}</p>
+        </div>
+        <div class="item">
+          <h4><i class="fa-solid fa-hotel"></i> Stay Facilities</h4>
+          <p>${s.stay.map(t=>`• ${t}`).join('<br>')}</p>
+        </div>`;
+      drawer.showModal();
+    });
+    document.getElementById('closeDrawer').addEventListener('click', ()=> drawer.close());
+    drawer.addEventListener('click', e=>{ if(e.target===drawer) drawer.close(); });
+
+    
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn?.addEventListener('click', ()=> alert('This is a single-page demo. Add links to sections or a full nav in production.'));
+
+    
+    const io = new IntersectionObserver((entries)=>{
+      for(const en of entries){ if(en.isIntersecting){ en.target.style.transition = 'transform .5s ease, opacity .6s ease'; en.target.style.transform='translateY(0)'; en.target.style.opacity='1'; io.unobserve(en.target); } }
+    },{ threshold:.12 });
+    document.querySelectorAll('.card').forEach(el=>{ el.style.transform='translateY(8px)'; el.style.opacity='.0'; io.observe(el); });
+
+  </script>
+</body>
+</html>
+
